@@ -1,11 +1,16 @@
-﻿const CACHE_NAME = 'toan9-v1';
+﻿const CACHE_NAME = 'toan9-pwa-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/katex-render.js',
-  'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css',
-  'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js'
+  './',
+  'index.html',
+  'css/style.css',
+  'lessons/ds-ch1-bai1.html',
+  'lessons/hh-ch1-bai1.html',
+  'lessons/ds-ch2-bai1.html',
+  'lessons/ds-ch3-bai1.html',
+  'lessons/ds-ch4-bai1.html',
+  'lessons/hh-ch2-bai1.html',
+  'exercises/de-on-thi-vao-10-mau-1.html',
+  'exercises/de-on-thi-vao-10-mau-2.html'
 ];
 
 self.addEventListener('install', (event) => {
