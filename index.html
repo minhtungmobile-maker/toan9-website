@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Ứng dụng học Toán lớp 9 chuẩn SGK, miễn phí, ôn thi vào lớp 10 hiệu quả.">
+  <title>Toán 9 – Chuẩn SGK | Ôn thi vào lớp 10</title>
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976d2">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Google Analytics 4 -->
+  <!-- 🔸 THAY G-XXXXXXXXXX BẰNG MEASUREMENT ID CỦA BẠN -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_path: window.location.pathname,
+      anonymize_ip: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  </script>
+
+  <!-- Service Worker (PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(reg => console.log('✅ SW registered'))
+          .catch(err => console.log('❌ SW failed:', err));
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>📘 TOÁN LỚP 9</h1>
+    <p>Chuẩn chương trình SGK – Bộ GD&ĐT | Ôn thi vào lớp 10 hiệu quả</p>
+    <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng/tối">🌙</button>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="home">Trang chủ</button>
+    <button class="tab-btn" data-tab="dai-so">Đại số</button>
+    <button class="tab-btn" data-tab="hinh-hoc">Hình học</button>
+    <button class="tab-btn" data-tab="on-thi">Ôn thi vào 10</button>
+  </nav>
+
+  <main id="content">
+    <!-- Trang chủ -->
+    <section id="home-content" class="active">
+      <div class="card">
+        <h2>Chào mừng bạn đến với Toán 9 chuẩn SGK!</h2>
+        <p>Ứng dụng này được biên soạn dựa trên <strong>Sách giáo khoa Toán 9 (NXB Giáo dục Việt Nam, 2024)</strong>.</p>
+        <ul>
+          <li>✅ <strong>23 bài Đại số</strong>: Căn bậc hai – Hàm số bậc nhất – Hệ phương trình – Phương trình bậc hai</li>
+          <li>✅ <strong>17 bài Hình học</strong>: Hệ thức lượng – Đường tròn – Góc với đường tròn – Hình trụ – nón – cầu</li>
+          <li>✅ <strong>4 đề kiểm tra 15 phút</strong> theo từng chương</li>
+          <li>✅ <strong>4 đề kiểm tra 1 tiết</strong> theo từng chương</li>
+          <li>✅ <strong>10 đề ôn thi vào lớp 10</strong> theo cấu trúc Sở GD&ĐT Hà Nội, TP.HCM, Đà Nẵng, Bình Dương...</li>
+          <li>✅ Miễn phí 100%, không quảng cáo, chạy tốt trên điện thoại</li>
+          <li>✅ Hỗ trợ chế độ tối, xuất PDF, cài như app</li>
+        </ul>
+        <p><em>Hãy chọn mục bên trên để bắt đầu học!</em></p>
+      </div>
+    </section>
+
+    <!-- Đại số -->
+    <section id="dai-so-content" class="hidden">
+      <h2>📘 Đại số</h2>
+      <div id="dai-so-list"><p>Đang tải...</p></div>
+    </section>
+
+    <!-- Hình học -->
+    <section id="hinh-hoc-content" class="hidden">
+      <h2>📐 Hình học</h2>
+      <div id="hinh-hoc-list"><p>Đang tải...</p></div>
+    </section>
+
+    <!-- Ôn thi -->
+    <section id="on-thi-content" class="hidden">
+      <div class="card">
+        <h2>🎯 Đề ôn thi vào lớp 10</h2>
+        <ul>
+          <li><a href="exercises/de-on-thi-vao-10-mau-1.html">Mẫu 1 – Hà Nội</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-mau-2.html">Mẫu 2 – TP.HCM</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-3.html">Đề 3 – Tổng hợp (dễ)</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-4.html">Đề 4 – Hà Nội</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-5.html">Đề 5 – Đà Nẵng</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-6.html">Đề 6 – Nâng cao</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-7.html">Đề 7 – Trung bình</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-8.html">Đề 8 – Bình Dương</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-9.html">Đề 9 – Cho HS giỏi</a></li>
+          <li><a href="exercises/de-on-thi-vao-10-de-10.html">Đề 10 – Tổng kết</a></li>
+        </ul>
+        
+        <h2>📝 Đề kiểm tra 15 phút</h2>
+        <ul>
+          <li><a href="exercises/de-kiem-tra-15p-ch1.html">Chương I: Căn bậc hai</a></li>
+          <li><a href="exercises/de-kiem-tra-15p-ch2.html">Chương II: Hàm số bậc nhất</a></li>
+          <li><a href="exercises/de-kiem-tra-15p-ch3.html">Chương III: Hệ phương trình</a></li>
+          <li><a href="exercises/de-kiem-tra-15p-ch4.html">Chương IV: Phương trình bậc hai</a></li>
+        </ul>
+
+        <h2>⏱️ Đề kiểm tra 1 tiết – Đại số</h2>
+        <ul>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch1.html">Chương I</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch2.html">Chương II</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch3.html">Chương III</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch4.html">Chương IV</a></li>
+        </ul>
+
+        <h2>⏱️ Đề kiểm tra 1 tiết – Hình học</h2>
+        <ul>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch1.html">Chương I: Hệ thức lượng</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch2.html">Chương II: Đường tròn</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch3.html">Chương III: Góc với đường tròn</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch4.html">Chương IV: Hình trụ – nón – cầu</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 | HSTAI 777 – Hỗ trợ học sinh Việt Nam | Dựa trên SGK Toán 9, NXB Giáo dục Việt Nam, 2024</p>
+  </footer>
+
+  <!-- Dark Mode -->
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const isDark = localStorage.getItem('theme') === 'dark' || 
+                   (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    }
+
+    themeToggle?.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isNowDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+      themeToggle.textContent = isNowDark ? '☀️' : '🌙';
+    });
+  </script>
+
+  <!-- Load dữ liệu bài học -->
+  <script>
+    async function loadLessons() {
+      try {
+        const [dsRes, hhRes] = await Promise.all([
+          fetch('data/chuong-dai-so.json'),
+          fetch('data/chuong-hinh-hoc.json')
+        ]);
+        const dsData = await dsRes.json();
+        const hhData = await hhRes.json();
+
+        // Render Đại số
+        let dsHtml = '';
+        for (const ch of Object.values(dsData)) {
+          dsHtml += `<h3>${ch.ten}</h3>`;
+          for (const bai of ch.bai) {
+            dsHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
+          }
+        }
+        document.getElementById('dai-so-list').innerHTML = dsHtml;
+
+        // Render Hình học
+        let hhHtml = '';
+        for (const ch of Object.values(hhData)) {
+          hhHtml += `<h3>${ch.ten}</h3>`;
+          for (const bai of ch.bai) {
+            hhHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
+          }
+        }
+        document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
+      } catch (e) {
+        console.error("❌ Lỗi tải dữ liệu:", e);
+        document.getElementById('dai-so-list').innerHTML = '<p>❌ Không tải được nội dung.</p>';
+        document.getElementById('hinh-hoc-list').innerHTML = '<p>❌ Không tải được nội dung.</p>';
+      }
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#content > section').forEach(s => s.classList.remove('active'));
+        btn.classList.add('active');
+        const tabId = btn.getAttribute('data-tab') + '-content';
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Load khi DOM sẵn sàng
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadLessons);
+    } else {
+      loadLessons();
+    }
+  </script>
+</body>
+</html>

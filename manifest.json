@@ -1,0 +1,21 @@
+﻿{
+  "name": "Toán 9 - Chuẩn SGK",
+  "short_name": "Toán 9",
+  "description": "Ứng dụng học Toán lớp 9 chuẩn SGK, miễn phí, ôn thi vào lớp 10.",
+  "start_url": "/toan9-web/",
+  "display": "standalone",
+  "background_color": "#1976d2",
+  "theme_color": "#1976d2",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
