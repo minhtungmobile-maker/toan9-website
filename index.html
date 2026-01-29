@@ -10,9 +10,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -21,17 +18,13 @@
   <meta name="theme-color" content="#1976d2">
   <link rel="apple-touch-icon" href="icon-192.png">
 
-  <!-- Google Analytics 4 -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', {
-      page_path: window.location.pathname,
-      anonymize_ip: true,
-      cookie_flags: 'SameSite=None;Secure'
-    });
+    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
   </script>
 
   <script>
@@ -41,17 +34,221 @@
       });
     }
   </script>
+
+  <!-- CSS NÂNG CAO -->
+  <style>
+    :root {
+      --primary: #1976d2;
+      --accent: #ff6f00;
+      --success: #4caf50;
+      --info: #2196f3;
+      --warning: #ff9800;
+      --danger: #f44336;
+      --light: #f5f9ff;
+      --card-bg: #ffffff;
+      --text: #212121;
+    }
+    body.dark-mode {
+      --card-bg: #1e1e1e;
+      --text: #e0e0e0;
+      --light: #121212;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--light);
+      transition: background 0.3s;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      position: relative;
+    }
+    header h1 { font-size: 1.8rem; }
+    #theme-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Thanh tìm kiếm */
+    .search-container {
+      max-width: 900px;
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+    #global-search {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.3s;
+    }
+    #global-search:focus {
+      border-color: var(--accent);
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.8rem 1rem;
+      background: var(--light);
+    }
+    .tab-btn {
+      background: #e3f2fd;
+      color: var(--primary);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .tab-btn:hover, .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(25,118,210,0.3);
+    }
+
+    /* Nội dung */
+    #content > section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .hidden { display: none; }
+    .active { display: block; }
+
+    /* Thẻ bài học - THIẾT KẾ MỚI */
+    .chapter-item {
+      background: var(--card-bg);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-left: 5px solid var(--accent);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s forwards;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .chapter-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--primary));
+    }
+    .chapter-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      background: #f0f7ff;
+    }
+    body.dark-mode .chapter-item:hover {
+      background: #2a2a2a;
+    }
+    .chapter-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .visit-count {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 0.4rem;
+      display: block;
+    }
+    body.dark-mode .visit-count {
+      color: #aaa;
+    }
+
+    /* Màu chương */
+    .chuong-dai-so { border-left-color: #ff6b6b !important; }
+    .chuong-dai-so::before { background: linear-gradient(to bottom, #ff6b6b, #1976d2); }
+    .chuong-hinh-hoc { border-left-color: #4ecdc4 !important; }
+    .chuong-hinh-hoc::before { background: linear-gradient(to bottom, #4ecdc4, #1a936f); }
+    .chuong-on-thi { border-left-color: #ffd166 !important; }
+    .chuong-on-thi::before { background: linear-gradient(to bottom, #ffd166, #ef476f); }
+
+    /* Nút quay lại */
+    .back-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .back-btn {
+      background: var(--light);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .tabs { flex-direction: column; align-items: stretch; }
+      .tab-btn { width: 100%; }
+      .back-buttons { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>📘 TOÁN LỚP 9</h1>
-    <p>Chuẩn chương trình SGK – Bộ GD&ĐT | Ôn thi vào lớp 10 hiệu quả</p>
-    <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng/tối">🌙</button>
+    <p>Chuẩn SGK – Ôn thi vào lớp 10 hiệu quả</p>
+    <button id="theme-toggle">🌙</button>
   </header>
 
-  <!-- THANH TÌM KIẾM MỞ RỘNG -->
-  <div class="search-box" style="max-width:900px;margin:0 auto;padding:0 1rem;">
-    <input type="text" id="global-search" placeholder="🔍 Tìm kiếm kiến thức (ví dụ: căn bậc hai, hệ thức lượng, phương trình bậc hai...)">
+  <!-- THANH TÌM KIẾM -->
+  <div class="search-container">
+    <input type="text" id="global-search" placeholder="🔍 Tìm nhanh: căn bậc hai, hệ thức lượng...">
   </div>
 
   <nav class="tabs">
@@ -64,279 +261,211 @@
   <main id="content">
     <!-- Trang chủ -->
     <section id="home-content" class="active">
-      <div class="card">
-        <h2>Chào mừng bạn đến với Toán 9 chuẩn SGK!</h2>
-        <p>Ứng dụng này được biên soạn dựa trên <strong>Sách giáo khoa Toán 9 (NXB Giáo dục Việt Nam, 2024)</strong>.</p>
-        <ul>
-          <li>✅ <strong>23 bài Đại số</strong>: Căn bậc hai – Hàm số bậc nhất – Hệ phương trình – Phương trình bậc hai</li>
-          <li>✅ <strong>17 bài Hình học</strong>: Hệ thức lượng – Đường tròn – Góc với đường tròn – Hình trụ – nón – cầu</li>
-          <li>✅ <strong>4 đề kiểm tra 15 phút</strong> theo từng chương</li>
-          <li>✅ <strong>4 đề kiểm tra 1 tiết</strong> theo từng chương</li>
-          <li>✅ <strong>10 đề ôn thi vào lớp 10</strong> theo cấu trúc Sở GD&ĐT Hà Nội, TP.HCM, Đà Nẵng, Bình Dương...</li>
-          <li>✅ Miễn phí 100%, không quảng cáo, chạy tốt trên điện thoại</li>
-          <li>✅ Hỗ trợ chế độ tối, xuất PDF, cài như app</li>
+      <div style="background:var(--card-bg);padding:1.8rem;border-radius:16px;margin:1.5rem 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+        <h2>🌟 Chào mừng bạn đến với Toán 9!</h2>
+        <p>Ứng dụng học Toán 9 <strong>chuẩn SGK 2024</strong>, thiết kế đẹp, dễ học, hỗ trợ ôn thi vào lớp 10.</p>
+        <ul style="margin:1rem 0 0;padding-left:1.5rem;">
+          <li>✅ 23 bài Đại số + 17 bài Hình học</li>
+          <li>✅ 14 đề kiểm tra & 10 đề ôn thi</li>
+          <li>✅ Giao diện sinh động – học không chán!</li>
+          <li>📊 Thống kê lượt học cá nhân</li>
         </ul>
-        <p><em>Hãy chọn mục bên trên để bắt đầu học!</em></p>
       </div>
     </section>
 
     <!-- Đại số -->
     <section id="dai-so-content" class="hidden">
-      <h2>📘 Đại số</h2>
+      <h2 style="color:#ff6b6b;margin:1.5rem 0;">📘 Đại số</h2>
       <div id="dai-so-list"></div>
       <div class="back-buttons">
-        <button onclick="window.history.back()">← Quay lại trang trước</button>
-        <a href="./">🏠 Quay về trang chủ</a>
+        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
+        <a href="./" class="back-btn">🏠 Trang chủ</a>
       </div>
     </section>
 
     <!-- Hình học -->
     <section id="hinh-hoc-content" class="hidden">
-      <h2>📐 Hình học</h2>
+      <h2 style="color:#4ecdc4;margin:1.5rem 0;">📐 Hình học</h2>
       <div id="hinh-hoc-list"></div>
       <div class="back-buttons">
-        <button onclick="window.history.back()">← Quay lại trang trước</button>
-        <a href="./">🏠 Quay về trang chủ</a>
+        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
+        <a href="./" class="back-btn">🏠 Trang chủ</a>
       </div>
     </section>
 
     <!-- Ôn thi -->
     <section id="on-thi-content" class="hidden">
-      <div class="card">
-        <h2>🎯 Đề ôn thi vào lớp 10</h2>
-        <ul>
-          <li><a href="exercises/de-on-thi-vao-10-mau-1.html">Mẫu 1 – Hà Nội</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-mau-2.html">Mẫu 2 – TP.HCM</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-3.html">Đề 3 – Tổng hợp (dễ)</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-4.html">Đề 4 – Hà Nội</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-5.html">Đề 5 – Đà Nẵng</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-6.html">Đề 6 – Nâng cao</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-7.html">Đề 7 – Trung bình</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-8.html">Đề 8 – Bình Dương</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-9.html">Đề 9 – Cho HS giỏi</a></li>
-          <li><a href="exercises/de-on-thi-vao-10-de-10.html">Đề 10 – Tổng kết</a></li>
-        </ul>
-        
-        <h2>📝 Đề kiểm tra 15 phút</h2>
-        <ul>
-          <li><a href="exercises/de-kiem-tra-15p-ch1.html">Chương I: Căn bậc hai</a></li>
-          <li><a href="exercises/de-kiem-tra-15p-ch2.html">Chương II: Hàm số bậc nhất</a></li>
-          <li><a href="exercises/de-kiem-tra-15p-ch3.html">Chương III: Hệ phương trình</a></li>
-          <li><a href="exercises/de-kiem-tra-15p-ch4.html">Chương IV: Phương trình bậc hai</a></li>
-        </ul>
-
-        <h2>⏱️ Đề kiểm tra 1 tiết</h2>
-        <ul>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch1.html">ĐS Chương I</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch2.html">ĐS Chương II</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch3.html">ĐS Chương III</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch4.html">ĐS Chương IV</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch1.html">HH Chương I</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch2.html">HH Chương II</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch3.html">HH Chương III</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch4.html">HH Chương IV</a></li>
-        </ul>
-      </div>
+      <h2 style="color:#ffd166;margin:1.5rem 0;">🎯 Ôn thi vào lớp 10</h2>
+      <div id="on-thi-list"></div>
       <div class="back-buttons">
-        <button onclick="window.history.back()">← Quay lại trang trước</button>
-        <a href="./">🏠 Quay về trang chủ</a>
+        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
+        <a href="./" class="back-btn">🏠 Trang chủ</a>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 | HSTAI 777 – Hỗ trợ học sinh Việt Nam | Dựa trên SGK Toán 9, NXB Giáo dục Việt Nam, 2024</p>
+    <p>© 2026 | HSTAI 777 – Hỗ trợ học sinh Việt Nam</p>
   </footer>
 
-  <!-- Dark Mode -->
+  <!-- DỮ LIỆU BÀI HỌC -->
   <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const isDark = localStorage.getItem('theme') === 'dark' || 
-                   (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    
-    if (isDark) {
-      document.body.classList.add('dark-mode');
-      themeToggle.textContent = '☀️';
+    const lessons = {
+      daiSo: [
+        { chuong: "Chương I: Căn bậc hai. Căn bậc ba", bai: [
+          { ten: "Bài 1: Căn bậc hai", file: "lessons/ds-ch1-bai1.html" },
+          { ten: "Bài 2: Căn thức bậc hai và hằng đẳng thức \\(\\sqrt{A^2} = |A|\\)", file: "lessons/ds-ch1-bai2.html" },
+          { ten: "Bài 3: Liên hệ giữa phép nhân và phép khai phương", file: "lessons/ds-ch1-bai3.html" },
+          { ten: "Bài 4: Liên hệ giữa phép chia và phép khai phương", file: "lessons/ds-ch1-bai4.html" },
+          { ten: "Bài 5: Biến đổi đơn giản biểu thức chứa căn bậc hai", file: "lessons/ds-ch1-bai5.html" },
+          { ten: "Bài 6: Rút gọn biểu thức chứa căn bậc hai", file: "lessons/ds-ch1-bai6.html" },
+          { ten: "Bài 7: Căn bậc ba", file: "lessons/ds-ch1-bai7.html" }
+        ]},
+        { chuong: "Chương II: Hàm số bậc nhất", bai: [
+          { ten: "Bài 1: Nhắc lại và bổ sung các khái niệm về hàm số", file: "lessons/ds-ch2-bai1.html" },
+          { ten: "Bài 2: Hàm số bậc nhất", file: "lessons/ds-ch2-bai2.html" },
+          { ten: "Bài 3: Đồ thị của hàm số \\(y = ax + b\\)", file: "lessons/ds-ch2-bai3.html" },
+          { ten: "Bài 4: Đường thẳng song song và đường thẳng cắt nhau", file: "lessons/ds-ch2-bai4.html" },
+          { ten: "Bài 5: Hệ số góc của đường thẳng \\(y = ax + b\\)", file: "lessons/ds-ch2-bai5.html" }
+        ]}
+      ],
+      hinhHoc: [
+        { chuong: "Chương I: Hệ thức lượng trong tam giác vuông", bai: [
+          { ten: "Bài 1: Một số hệ thức về cạnh và đường cao...", file: "lessons/hh-ch1-bai1.html" },
+          { ten: "Bài 2: Tỉ số lượng giác của góc nhọn", file: "lessons/hh-ch1-bai2.html" },
+          { ten: "Bài 3: Bảng lượng giác", file: "lessons/hh-ch1-bai3.html" },
+          { ten: "Bài 4: Một số hệ thức về cạnh và góc...", file: "lessons/hh-ch1-bai4.html" }
+        ]},
+        { chuong: "Chương II: Đường tròn", bai: [
+          { ten: "Bài 1: Sự xác định đường tròn...", file: "lessons/hh-ch2-bai1.html" },
+          { ten: "Bài 2: Đường kính và dây của đường tròn", file: "lessons/hh-ch2-bai2.html" },
+          { ten: "Bài 3: Liên hệ giữa dây và khoảng cách...", file: "lessons/hh-ch2-bai3.html" },
+          { ten: "Bài 4: Vị trí tương đối của đường thẳng và đường tròn", file: "lessons/hh-ch2-bai4.html" },
+          { ten: "Bài 5: Dấu hiệu nhận biết tiếp tuyến...", file: "lessons/hh-ch2-bai5.html" },
+          { ten: "Bài 6: Tính chất của hai tiếp tuyến cắt nhau", file: "lessons/hh-ch2-bai6.html" },
+          { ten: "Bài 7: Vị trí tương đối của hai đường tròn", file: "lessons/hh-ch2-bai7.html" }
+        ]}
+      ],
+      onThi: [
+        { ten: "Mẫu 1 – Hà Nội", file: "exercises/de-on-thi-vao-10-mau-1.html" },
+        { ten: "Mẫu 2 – TP.HCM", file: "exercises/de-on-thi-vao-10-mau-2.html" },
+        { ten: "Đề 3 – Tổng hợp (dễ)", file: "exercises/de-on-thi-vao-10-de-3.html" },
+        { ten: "Đề 4 – Hà Nội", file: "exercises/de-on-thi-vao-10-de-4.html" },
+        { ten: "Đề 5 – Đà Nẵng", file: "exercises/de-on-thi-vao-10-de-5.html" },
+        { ten: "Đề 6 – Nâng cao", file: "exercises/de-on-thi-vao-10-de-6.html" },
+        { ten: "Đề 7 – Trung bình", file: "exercises/de-on-thi-vao-10-de-7.html" },
+        { ten: "Đề 8 – Bình Dương", file: "exercises/de-on-thi-vao-10-de-8.html" },
+        { ten: "Đề 9 – Cho HS giỏi", file: "exercises/de-on-thi-vao-10-de-9.html" },
+        { ten: "Đề 10 – Tổng kết", file: "exercises/de-on-thi-vao-10-de-10.html" }
+      ]
+    };
+
+    // === THỐNG KÊ LƯỢT HỌC ===
+    function getVisitCount(key) {
+      return parseInt(localStorage.getItem(`visit_${key}`) || '0');
+    }
+    function incrementVisit(key) {
+      const count = getVisitCount(key) + 1;
+      localStorage.setItem(`visit_${key}`, count.toString());
+      return count;
     }
 
-    themeToggle?.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isNowDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
-      themeToggle.textContent = isNowDark ? '☀️' : '🌙';
-    });
-  </script>
-
-  <!-- Tải dữ liệu bài học NGAY KHI TRANG CHẠY -->
-  <script>
-    // Dữ liệu cứng (inline) để tránh "Đang tải..."
-    const DS_DATA = {
-      "chuong1": {
-        "ten": "Chương I: Căn bậc hai. Căn bậc ba",
-        "bai": [
-          {"ma":"ds-ch1-bai1","ten":"Bài 1: Căn bậc hai","file":"lessons/ds-ch1-bai1.html"},
-          {"ma":"ds-ch1-bai2","ten":"Bài 2: Căn thức bậc hai và hằng đẳng thức \\(\\sqrt{A^2} = |A|\\)","file":"lessons/ds-ch1-bai2.html"},
-          {"ma":"ds-ch1-bai3","ten":"Bài 3: Liên hệ giữa phép nhân và phép khai phương","file":"lessons/ds-ch1-bai3.html"},
-          {"ma":"ds-ch1-bai4","ten":"Bài 4: Liên hệ giữa phép chia và phép khai phương","file":"lessons/ds-ch1-bai4.html"},
-          {"ma":"ds-ch1-bai5","ten":"Bài 5: Biến đổi đơn giản biểu thức chứa căn bậc hai","file":"lessons/ds-ch1-bai5.html"},
-          {"ma":"ds-ch1-bai6","ten":"Bài 6: Rút gọn biểu thức chứa căn bậc hai","file":"lessons/ds-ch1-bai6.html"},
-          {"ma":"ds-ch1-bai7","ten":"Bài 7: Căn bậc ba","file":"lessons/ds-ch1-bai7.html"}
-        ]
-      },
-      "chuong2": {
-        "ten": "Chương II: Hàm số bậc nhất",
-        "bai": [
-          {"ma":"ds-ch2-bai1","ten":"Bài 1: Nhắc lại và bổ sung các khái niệm về hàm số","file":"lessons/ds-ch2-bai1.html"},
-          {"ma":"ds-ch2-bai2","ten":"Bài 2: Hàm số bậc nhất","file":"lessons/ds-ch2-bai2.html"},
-          {"ma":"ds-ch2-bai3","ten":"Bài 3: Đồ thị của hàm số \\(y = ax + b\\)","file":"lessons/ds-ch2-bai3.html"},
-          {"ma":"ds-ch2-bai4","ten":"Bài 4: Đường thẳng song song và đường thẳng cắt nhau","file":"lessons/ds-ch2-bai4.html"},
-          {"ma":"ds-ch2-bai5","ten":"Bài 5: Hệ số góc của đường thẳng \\(y = ax + b\\)","file":"lessons/ds-ch2-bai5.html"}
-        ]
-      },
-      "chuong3": {
-        "ten": "Chương III: Hệ hai phương trình bậc nhất hai ẩn",
-        "bai": [
-          {"ma":"ds-ch3-bai1","ten":"Bài 1: Phương trình bậc nhất hai ẩn","file":"lessons/ds-ch3-bai1.html"},
-          {"ma":"ds-ch3-bai2","ten":"Bài 2: Hệ hai phương trình bậc nhất hai ẩn","file":"lessons/ds-ch3-bai2.html"},
-          {"ma":"ds-ch3-bai3","ten":"Bài 3: Giải hệ phương trình bằng phương pháp thế","file":"lessons/ds-ch3-bai3.html"},
-          {"ma":"ds-ch3-bai4","ten":"Bài 4: Giải hệ phương trình bằng phương pháp cộng đại số","file":"lessons/ds-ch3-bai4.html"},
-          {"ma":"ds-ch3-bai5","ten":"Bài 5: Giải bài toán bằng cách lập hệ phương trình","file":"lessons/ds-ch3-bai5.html"}
-        ]
-      },
-      "chuong4": {
-        "ten": "Chương IV: Hàm số \\(y = ax^2\\) (\\(a \\ne 0\\)). Phương trình bậc hai một ẩn",
-        "bai": [
-          {"ma":"ds-ch4-bai1","ten":"Bài 1: Hàm số \\(y = ax^2\\)","file":"lessons/ds-ch4-bai1.html"},
-          {"ma":"ds-ch4-bai2","ten":"Bài 2: Đồ thị của hàm số \\(y = ax^2\\)","file":"lessons/ds-ch4-bai2.html"},
-          {"ma":"ds-ch4-bai3","ten":"Bài 3: Phương trình bậc hai một ẩn","file":"lessons/ds-ch4-bai3.html"},
-          {"ma":"ds-ch4-bai4","ten":"Bài 4: Công thức nghiệm của phương trình bậc hai","file":"lessons/ds-ch4-bai4.html"},
-          {"ma":"ds-ch4-bai5","ten":"Bài 5: Hệ thức Vi-ét và ứng dụng","file":"lessons/ds-ch4-bai5.html"},
-          {"ma":"ds-ch4-bai6","ten":"Bài 6: Giải bài toán bằng cách lập phương trình bậc hai","file":"lessons/ds-ch4-bai6.html"}
-        ]
-      }
-    };
-
-    const HH_DATA = {
-      "chuong1": {
-        "ten": "Chương I: Hệ thức lượng trong tam giác vuông",
-        "bai": [
-          {"ma":"hh-ch1-bai1","ten":"Bài 1: Một số hệ thức về cạnh và đường cao trong tam giác vuông","file":"lessons/hh-ch1-bai1.html"},
-          {"ma":"hh-ch1-bai2","ten":"Bài 2: Tỉ số lượng giác của góc nhọn","file":"lessons/hh-ch1-bai2.html"},
-          {"ma":"hh-ch1-bai3","ten":"Bài 3: Bảng lượng giác","file":"lessons/hh-ch1-bai3.html"},
-          {"ma":"hh-ch1-bai4","ten":"Bài 4: Một số hệ thức về cạnh và góc trong tam giác vuông","file":"lessons/hh-ch1-bai4.html"}
-        ]
-      },
-      "chuong2": {
-        "ten": "Chương II: Đường tròn",
-        "bai": [
-          {"ma":"hh-ch2-bai1","ten":"Bài 1: Sự xác định đường tròn. Tính chất đối xứng của đường tròn","file":"lessons/hh-ch2-bai1.html"},
-          {"ma":"hh-ch2-bai2","ten":"Bài 2: Đường kính và dây của đường tròn","file":"lessons/hh-ch2-bai2.html"},
-          {"ma":"hh-ch2-bai3","ten":"Bài 3: Liên hệ giữa dây và khoảng cách từ tâm đến dây","file":"lessons/hh-ch2-bai3.html"},
-          {"ma":"hh-ch2-bai4","ten":"Bài 4: Vị trí tương đối của đường thẳng và đường tròn","file":"lessons/hh-ch2-bai4.html"},
-          {"ma":"hh-ch2-bai5","ten":"Bài 5: Dấu hiệu nhận biết tiếp tuyến của đường tròn","file":"lessons/hh-ch2-bai5.html"},
-          {"ma":"hh-ch2-bai6","ten":"Bài 6: Tính chất của hai tiếp tuyến cắt nhau","file":"lessons/hh-ch2-bai6.html"},
-          {"ma":"hh-ch2-bai7","ten":"Bài 7: Vị trí tương đối của hai đường tròn","file":"lessons/hh-ch2-bai7.html"}
-        ]
-      },
-      "chuong3": {
-        "ten": "Chương III: Góc với đường tròn",
-        "bai": [
-          {"ma":"hh-ch3-bai1","ten":"Bài 1: Góc ở tâm. Số đo cung","file":"lessons/hh-ch3-bai1.html"},
-          {"ma":"hh-ch3-bai2","ten":"Bài 2: Liên hệ giữa cung và dây","file":"lessons/hh-ch3-bai2.html"},
-          {"ma":"hh-ch3-bai3","ten":"Bài 3: Góc nội tiếp","file":"lessons/hh-ch3-bai3.html"},
-          {"ma":"hh-ch3-bai4","ten":"Bài 4: Góc tạo bởi tia tiếp tuyến và dây cung","file":"lessons/hh-ch3-bai4.html"},
-          {"ma":"hh-ch3-bai5","ten":"Bài 5: Góc có đỉnh ở bên trong đường tròn. Góc có đỉnh ở bên ngoài đường tròn","file":"lessons/hh-ch3-bai5.html"},
-          {"ma":"hh-ch3-bai6","ten":"Bài 6: Cung chứa góc","file":"lessons/hh-ch3-bai6.html"}
-        ]
-      },
-      "chuong4": {
-        "ten": "Chương IV: Hình trụ - Hình nón - Hình cầu",
-        "bai": [
-          {"ma":"hh-ch4-bai1","ten":"Bài 1: Hình trụ. Diện tích xung quanh và thể tích","file":"lessons/hh-ch4-bai1.html"},
-          {"ma":"hh-ch4-bai2","ten":"Bài 2: Hình nón - Hình nón cụt","file":"lessons/hh-ch4-bai2.html"},
-          {"ma":"hh-ch4-bai3","ten":"Bài 3: Hình cầu. Diện tích mặt cầu và thể tích","file":"lessons/hh-ch4-bai3.html"}
-        ]
-      }
-    };
-
-    // Render ngay khi load
-    function renderLessons() {
+    // === RENDER VỚI THỐNG KÊ ===
+    function renderContent() {
+      // Đại số
       let dsHtml = '';
-      for (const ch of Object.values(DS_DATA)) {
-        dsHtml += `<h3>${ch.ten}</h3>`;
-        for (const bai of ch.bai) {
-          dsHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
-        }
-      }
+      lessons.daiSo.forEach(ch => {
+        dsHtml += `<h3 style="margin:1.2rem 0;color:#ff6b6b;">${ch.chuong}</h3>`;
+        ch.bai.forEach(b => {
+          const key = b.file.replace(/\//g, '_').replace(/\.html$/, '');
+          const count = getVisitCount(key);
+          dsHtml += `
+            <div class="chapter-item chuong-dai-so" data-key="${key}">
+              <a href="${b.file}" onclick="incrementVisit('${key}')">${b.ten}</a>
+              <span class="visit-count">Đã học: ${count} lần</span>
+            </div>`;
+        });
+      });
       document.getElementById('dai-so-list').innerHTML = dsHtml;
 
+      // Hình học
       let hhHtml = '';
-      for (const ch of Object.values(HH_DATA)) {
-        hhHtml += `<h3>${ch.ten}</h3>`;
-        for (const bai of ch.bai) {
-          hhHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
-        }
-      }
-      document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
-    }
-
-    // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('#content > section').forEach(s => s.classList.remove('active'));
-        btn.classList.add('active');
-        const tabId = btn.getAttribute('data-tab') + '-content';
-        document.getElementById(tabId).classList.add('active');
+      lessons.hinhHoc.forEach(ch => {
+        hhHtml += `<h3 style="margin:1.2rem 0;color:#4ecdc4;">${ch.chuong}</h3>`;
+        ch.bai.forEach(b => {
+          const key = b.file.replace(/\//g, '_').replace(/\.html$/, '');
+          const count = getVisitCount(key);
+          hhHtml += `
+            <div class="chapter-item chuong-hinh-hoc" data-key="${key}">
+              <a href="${b.file}" onclick="incrementVisit('${key}')">${b.ten}</a>
+              <span class="visit-count">Đã học: ${count} lần</span>
+            </div>`;
+        });
       });
+      document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
+
+      // Ôn thi
+      let onThiHtml = '<ul style="list-style:none;padding:0;">';
+      lessons.onThi.forEach(item => {
+        const key = item.file.replace(/\//g, '_').replace(/\.html$/, '');
+        const count = getVisitCount(key);
+        onThiHtml += `
+          <li style="margin-bottom:0.8rem;">
+            <a href="${item.file}" class="chapter-item chuong-on-thi" style="display:block;padding:1rem;border-radius:12px;" onclick="incrementVisit('${key}')">
+              ${item.ten}
+              <span class="visit-count">Đã học: ${count} lần</span>
+            </a>
+          </li>`;
+      });
+      onThiHtml += '</ul>';
+      document.getElementById('on-thi-list').innerHTML = onThiHtml;
+
+      // Áp dụng animation delay
+      document.querySelectorAll('.chapter-item').forEach((el, i) => {
+        el.style.animationDelay = `${i * 0.05}s`;
+      });
+    }
+
+    // === CÁC HÀM HỖ TRỢ ===
+    function goBack() {
+      if (window.history.length > 1) window.history.back();
+      else window.location.href = './';
+    }
+
+    function setupTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#content > section').forEach(s => s.classList.remove('active'));
+          btn.classList.add('active');
+          const tabId = btn.getAttribute('data-tab') + '-content';
+          document.getElementById(tabId).classList.add('active');
+        });
+      });
+    }
+
+    function setupDarkMode() {
+      const toggle = document.getElementById('theme-toggle');
+      const isDark = localStorage.getItem('theme') === 'dark' || 
+                     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
+        document.body.classList.add('dark-mode');
+        toggle.textContent = '☀️';
+      }
+      toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const nowDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+        toggle.textContent = nowDark ? '☀️' : '🌙';
+      });
+    }
+
+    // === KHỞI TẠO ===
+    document.addEventListener('DOMContentLoaded', () => {
+      renderContent();
+      setupTabs();
+      setupDarkMode();
     });
-
-    // Tìm kiếm
-    document.getElementById('global-search')?.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      if (term.trim() === '') return;
-
-      // Gợi ý nhanh (có thể mở rộng thành modal)
-      alert(`Bạn đang tìm: "${term}"\nTính năng tìm kiếm nâng cao sẽ được phát triển trong phiên bản tiếp theo.`);
-    });
-
-    // Load ngay
-    renderLessons();
   </script>
-
-  <style>
-    .search-box {
-      padding: 0.8rem 0;
-      background: var(--bg-primary);
-    }
-    #global-search {
-      width: 100%;
-      padding: 0.6rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-    .back-buttons {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .back-buttons button,
-    .back-buttons a {
-      background: #e3f2fd;
-      color: #1976d2;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .back-buttons button:hover,
-    .back-buttons a:hover {
-      background: #bbdefb;
-    }
-  </style>
 </body>
 </html>
