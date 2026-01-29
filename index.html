@@ -22,7 +22,6 @@
   <link rel="apple-touch-icon" href="icon-192.png">
 
   <!-- Google Analytics 4 -->
-  <!-- 🔸 THAY G-XXXXXXXXXX BẰNG MEASUREMENT ID CỦA BẠN -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -35,13 +34,10 @@
     });
   </script>
 
-  <!-- Service Worker (PWA) -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-          .then(reg => console.log('✅ SW registered'))
-          .catch(err => console.log('❌ SW failed:', err));
+        navigator.serviceWorker.register('./service-worker.js');
       });
     }
   </script>
@@ -52,6 +48,11 @@
     <p>Chuẩn chương trình SGK – Bộ GD&ĐT | Ôn thi vào lớp 10 hiệu quả</p>
     <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng/tối">🌙</button>
   </header>
+
+  <!-- THANH TÌM KIẾM MỞ RỘNG -->
+  <div class="search-box" style="max-width:900px;margin:0 auto;padding:0 1rem;">
+    <input type="text" id="global-search" placeholder="🔍 Tìm kiếm kiến thức (ví dụ: căn bậc hai, hệ thức lượng, phương trình bậc hai...)">
+  </div>
 
   <nav class="tabs">
     <button class="tab-btn active" data-tab="home">Trang chủ</button>
@@ -82,13 +83,21 @@
     <!-- Đại số -->
     <section id="dai-so-content" class="hidden">
       <h2>📘 Đại số</h2>
-      <div id="dai-so-list"><p>Đang tải...</p></div>
+      <div id="dai-so-list"></div>
+      <div class="back-buttons">
+        <button onclick="window.history.back()">← Quay lại trang trước</button>
+        <a href="./">🏠 Quay về trang chủ</a>
+      </div>
     </section>
 
     <!-- Hình học -->
     <section id="hinh-hoc-content" class="hidden">
       <h2>📐 Hình học</h2>
-      <div id="hinh-hoc-list"><p>Đang tải...</p></div>
+      <div id="hinh-hoc-list"></div>
+      <div class="back-buttons">
+        <button onclick="window.history.back()">← Quay lại trang trước</button>
+        <a href="./">🏠 Quay về trang chủ</a>
+      </div>
     </section>
 
     <!-- Ôn thi -->
@@ -116,21 +125,21 @@
           <li><a href="exercises/de-kiem-tra-15p-ch4.html">Chương IV: Phương trình bậc hai</a></li>
         </ul>
 
-        <h2>⏱️ Đề kiểm tra 1 tiết – Đại số</h2>
+        <h2>⏱️ Đề kiểm tra 1 tiết</h2>
         <ul>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch1.html">Chương I</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch2.html">Chương II</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch3.html">Chương III</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-ch4.html">Chương IV</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch1.html">ĐS Chương I</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch2.html">ĐS Chương II</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch3.html">ĐS Chương III</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-ch4.html">ĐS Chương IV</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch1.html">HH Chương I</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch2.html">HH Chương II</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch3.html">HH Chương III</a></li>
+          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch4.html">HH Chương IV</a></li>
         </ul>
-
-        <h2>⏱️ Đề kiểm tra 1 tiết – Hình học</h2>
-        <ul>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch1.html">Chương I: Hệ thức lượng</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch2.html">Chương II: Đường tròn</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch3.html">Chương III: Góc với đường tròn</a></li>
-          <li><a href="exercises/de-kiem-tra-1-tiet-hh-ch4.html">Chương IV: Hình trụ – nón – cầu</a></li>
-        </ul>
+      </div>
+      <div class="back-buttons">
+        <button onclick="window.history.back()">← Quay lại trang trước</button>
+        <a href="./">🏠 Quay về trang chủ</a>
       </div>
     </section>
   </main>
@@ -158,41 +167,117 @@
     });
   </script>
 
-  <!-- Load dữ liệu bài học -->
+  <!-- Tải dữ liệu bài học NGAY KHI TRANG CHẠY -->
   <script>
-    async function loadLessons() {
-      try {
-        const [dsRes, hhRes] = await Promise.all([
-          fetch('data/chuong-dai-so.json'),
-          fetch('data/chuong-hinh-hoc.json')
-        ]);
-        const dsData = await dsRes.json();
-        const hhData = await hhRes.json();
-
-        // Render Đại số
-        let dsHtml = '';
-        for (const ch of Object.values(dsData)) {
-          dsHtml += `<h3>${ch.ten}</h3>`;
-          for (const bai of ch.bai) {
-            dsHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
-          }
-        }
-        document.getElementById('dai-so-list').innerHTML = dsHtml;
-
-        // Render Hình học
-        let hhHtml = '';
-        for (const ch of Object.values(hhData)) {
-          hhHtml += `<h3>${ch.ten}</h3>`;
-          for (const bai of ch.bai) {
-            hhHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
-          }
-        }
-        document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
-      } catch (e) {
-        console.error("❌ Lỗi tải dữ liệu:", e);
-        document.getElementById('dai-so-list').innerHTML = '<p>❌ Không tải được nội dung.</p>';
-        document.getElementById('hinh-hoc-list').innerHTML = '<p>❌ Không tải được nội dung.</p>';
+    // Dữ liệu cứng (inline) để tránh "Đang tải..."
+    const DS_DATA = {
+      "chuong1": {
+        "ten": "Chương I: Căn bậc hai. Căn bậc ba",
+        "bai": [
+          {"ma":"ds-ch1-bai1","ten":"Bài 1: Căn bậc hai","file":"lessons/ds-ch1-bai1.html"},
+          {"ma":"ds-ch1-bai2","ten":"Bài 2: Căn thức bậc hai và hằng đẳng thức \\(\\sqrt{A^2} = |A|\\)","file":"lessons/ds-ch1-bai2.html"},
+          {"ma":"ds-ch1-bai3","ten":"Bài 3: Liên hệ giữa phép nhân và phép khai phương","file":"lessons/ds-ch1-bai3.html"},
+          {"ma":"ds-ch1-bai4","ten":"Bài 4: Liên hệ giữa phép chia và phép khai phương","file":"lessons/ds-ch1-bai4.html"},
+          {"ma":"ds-ch1-bai5","ten":"Bài 5: Biến đổi đơn giản biểu thức chứa căn bậc hai","file":"lessons/ds-ch1-bai5.html"},
+          {"ma":"ds-ch1-bai6","ten":"Bài 6: Rút gọn biểu thức chứa căn bậc hai","file":"lessons/ds-ch1-bai6.html"},
+          {"ma":"ds-ch1-bai7","ten":"Bài 7: Căn bậc ba","file":"lessons/ds-ch1-bai7.html"}
+        ]
+      },
+      "chuong2": {
+        "ten": "Chương II: Hàm số bậc nhất",
+        "bai": [
+          {"ma":"ds-ch2-bai1","ten":"Bài 1: Nhắc lại và bổ sung các khái niệm về hàm số","file":"lessons/ds-ch2-bai1.html"},
+          {"ma":"ds-ch2-bai2","ten":"Bài 2: Hàm số bậc nhất","file":"lessons/ds-ch2-bai2.html"},
+          {"ma":"ds-ch2-bai3","ten":"Bài 3: Đồ thị của hàm số \\(y = ax + b\\)","file":"lessons/ds-ch2-bai3.html"},
+          {"ma":"ds-ch2-bai4","ten":"Bài 4: Đường thẳng song song và đường thẳng cắt nhau","file":"lessons/ds-ch2-bai4.html"},
+          {"ma":"ds-ch2-bai5","ten":"Bài 5: Hệ số góc của đường thẳng \\(y = ax + b\\)","file":"lessons/ds-ch2-bai5.html"}
+        ]
+      },
+      "chuong3": {
+        "ten": "Chương III: Hệ hai phương trình bậc nhất hai ẩn",
+        "bai": [
+          {"ma":"ds-ch3-bai1","ten":"Bài 1: Phương trình bậc nhất hai ẩn","file":"lessons/ds-ch3-bai1.html"},
+          {"ma":"ds-ch3-bai2","ten":"Bài 2: Hệ hai phương trình bậc nhất hai ẩn","file":"lessons/ds-ch3-bai2.html"},
+          {"ma":"ds-ch3-bai3","ten":"Bài 3: Giải hệ phương trình bằng phương pháp thế","file":"lessons/ds-ch3-bai3.html"},
+          {"ma":"ds-ch3-bai4","ten":"Bài 4: Giải hệ phương trình bằng phương pháp cộng đại số","file":"lessons/ds-ch3-bai4.html"},
+          {"ma":"ds-ch3-bai5","ten":"Bài 5: Giải bài toán bằng cách lập hệ phương trình","file":"lessons/ds-ch3-bai5.html"}
+        ]
+      },
+      "chuong4": {
+        "ten": "Chương IV: Hàm số \\(y = ax^2\\) (\\(a \\ne 0\\)). Phương trình bậc hai một ẩn",
+        "bai": [
+          {"ma":"ds-ch4-bai1","ten":"Bài 1: Hàm số \\(y = ax^2\\)","file":"lessons/ds-ch4-bai1.html"},
+          {"ma":"ds-ch4-bai2","ten":"Bài 2: Đồ thị của hàm số \\(y = ax^2\\)","file":"lessons/ds-ch4-bai2.html"},
+          {"ma":"ds-ch4-bai3","ten":"Bài 3: Phương trình bậc hai một ẩn","file":"lessons/ds-ch4-bai3.html"},
+          {"ma":"ds-ch4-bai4","ten":"Bài 4: Công thức nghiệm của phương trình bậc hai","file":"lessons/ds-ch4-bai4.html"},
+          {"ma":"ds-ch4-bai5","ten":"Bài 5: Hệ thức Vi-ét và ứng dụng","file":"lessons/ds-ch4-bai5.html"},
+          {"ma":"ds-ch4-bai6","ten":"Bài 6: Giải bài toán bằng cách lập phương trình bậc hai","file":"lessons/ds-ch4-bai6.html"}
+        ]
       }
+    };
+
+    const HH_DATA = {
+      "chuong1": {
+        "ten": "Chương I: Hệ thức lượng trong tam giác vuông",
+        "bai": [
+          {"ma":"hh-ch1-bai1","ten":"Bài 1: Một số hệ thức về cạnh và đường cao trong tam giác vuông","file":"lessons/hh-ch1-bai1.html"},
+          {"ma":"hh-ch1-bai2","ten":"Bài 2: Tỉ số lượng giác của góc nhọn","file":"lessons/hh-ch1-bai2.html"},
+          {"ma":"hh-ch1-bai3","ten":"Bài 3: Bảng lượng giác","file":"lessons/hh-ch1-bai3.html"},
+          {"ma":"hh-ch1-bai4","ten":"Bài 4: Một số hệ thức về cạnh và góc trong tam giác vuông","file":"lessons/hh-ch1-bai4.html"}
+        ]
+      },
+      "chuong2": {
+        "ten": "Chương II: Đường tròn",
+        "bai": [
+          {"ma":"hh-ch2-bai1","ten":"Bài 1: Sự xác định đường tròn. Tính chất đối xứng của đường tròn","file":"lessons/hh-ch2-bai1.html"},
+          {"ma":"hh-ch2-bai2","ten":"Bài 2: Đường kính và dây của đường tròn","file":"lessons/hh-ch2-bai2.html"},
+          {"ma":"hh-ch2-bai3","ten":"Bài 3: Liên hệ giữa dây và khoảng cách từ tâm đến dây","file":"lessons/hh-ch2-bai3.html"},
+          {"ma":"hh-ch2-bai4","ten":"Bài 4: Vị trí tương đối của đường thẳng và đường tròn","file":"lessons/hh-ch2-bai4.html"},
+          {"ma":"hh-ch2-bai5","ten":"Bài 5: Dấu hiệu nhận biết tiếp tuyến của đường tròn","file":"lessons/hh-ch2-bai5.html"},
+          {"ma":"hh-ch2-bai6","ten":"Bài 6: Tính chất của hai tiếp tuyến cắt nhau","file":"lessons/hh-ch2-bai6.html"},
+          {"ma":"hh-ch2-bai7","ten":"Bài 7: Vị trí tương đối của hai đường tròn","file":"lessons/hh-ch2-bai7.html"}
+        ]
+      },
+      "chuong3": {
+        "ten": "Chương III: Góc với đường tròn",
+        "bai": [
+          {"ma":"hh-ch3-bai1","ten":"Bài 1: Góc ở tâm. Số đo cung","file":"lessons/hh-ch3-bai1.html"},
+          {"ma":"hh-ch3-bai2","ten":"Bài 2: Liên hệ giữa cung và dây","file":"lessons/hh-ch3-bai2.html"},
+          {"ma":"hh-ch3-bai3","ten":"Bài 3: Góc nội tiếp","file":"lessons/hh-ch3-bai3.html"},
+          {"ma":"hh-ch3-bai4","ten":"Bài 4: Góc tạo bởi tia tiếp tuyến và dây cung","file":"lessons/hh-ch3-bai4.html"},
+          {"ma":"hh-ch3-bai5","ten":"Bài 5: Góc có đỉnh ở bên trong đường tròn. Góc có đỉnh ở bên ngoài đường tròn","file":"lessons/hh-ch3-bai5.html"},
+          {"ma":"hh-ch3-bai6","ten":"Bài 6: Cung chứa góc","file":"lessons/hh-ch3-bai6.html"}
+        ]
+      },
+      "chuong4": {
+        "ten": "Chương IV: Hình trụ - Hình nón - Hình cầu",
+        "bai": [
+          {"ma":"hh-ch4-bai1","ten":"Bài 1: Hình trụ. Diện tích xung quanh và thể tích","file":"lessons/hh-ch4-bai1.html"},
+          {"ma":"hh-ch4-bai2","ten":"Bài 2: Hình nón - Hình nón cụt","file":"lessons/hh-ch4-bai2.html"},
+          {"ma":"hh-ch4-bai3","ten":"Bài 3: Hình cầu. Diện tích mặt cầu và thể tích","file":"lessons/hh-ch4-bai3.html"}
+        ]
+      }
+    };
+
+    // Render ngay khi load
+    function renderLessons() {
+      let dsHtml = '';
+      for (const ch of Object.values(DS_DATA)) {
+        dsHtml += `<h3>${ch.ten}</h3>`;
+        for (const bai of ch.bai) {
+          dsHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
+        }
+      }
+      document.getElementById('dai-so-list').innerHTML = dsHtml;
+
+      let hhHtml = '';
+      for (const ch of Object.values(HH_DATA)) {
+        hhHtml += `<h3>${ch.ten}</h3>`;
+        for (const bai of ch.bai) {
+          hhHtml += `<div class="chapter-item"><a href="${bai.file}">${bai.ten}</a></div>`;
+        }
+      }
+      document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
     }
 
     // Tab switching
@@ -206,12 +291,52 @@
       });
     });
 
-    // Load khi DOM sẵn sàng
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', loadLessons);
-    } else {
-      loadLessons();
-    }
+    // Tìm kiếm
+    document.getElementById('global-search')?.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      if (term.trim() === '') return;
+
+      // Gợi ý nhanh (có thể mở rộng thành modal)
+      alert(`Bạn đang tìm: "${term}"\nTính năng tìm kiếm nâng cao sẽ được phát triển trong phiên bản tiếp theo.`);
+    });
+
+    // Load ngay
+    renderLessons();
   </script>
+
+  <style>
+    .search-box {
+      padding: 0.8rem 0;
+      background: var(--bg-primary);
+    }
+    #global-search {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .back-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .back-buttons button,
+    .back-buttons a {
+      background: #e3f2fd;
+      color: #1976d2;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .back-buttons button:hover,
+    .back-buttons a:hover {
+      background: #bbdefb;
+    }
+  </style>
 </body>
 </html>
