@@ -3,53 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Ứng dụng học Toán lớp 9 chuẩn SGK, miễn phí, ôn thi vào lớp 10 hiệu quả.">
-  <title>Toán 9 – Chuẩn SGK | Ôn thi vào lớp 10</title>
-
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="description" content="App học Toán 9 cho học sinh yếu – đậu vào lớp 10">
+  <title>Toán 9 – Đậu Lớp 10</title>
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1976d2">
   <link rel="apple-touch-icon" href="icon-192.png">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
-      });
-    }
-  </script>
-
-  <!-- CSS NÂNG CAO -->
+  <!-- CSS -->
   <style>
     :root {
       --primary: #1976d2;
       --accent: #ff6f00;
       --success: #4caf50;
-      --info: #2196f3;
-      --warning: #ff9800;
-      --danger: #f44336;
       --light: #f5f9ff;
-      --card-bg: #ffffff;
+      --card: #ffffff;
       --text: #212121;
     }
     body.dark-mode {
-      --card-bg: #1e1e1e;
+      --card: #1e1e1e;
       --text: #e0e0e0;
       --light: #121212;
     }
@@ -60,168 +33,65 @@
       line-height: 1.6;
       color: var(--text);
       background: var(--light);
-      transition: background 0.3s;
+      padding-bottom: 2rem;
     }
 
     header {
       background: var(--primary);
       color: white;
-      padding: 1.2rem 1rem;
+      padding: 1.2rem;
       text-align: center;
-      position: relative;
-    }
-    header h1 { font-size: 1.8rem; }
-    #theme-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
     }
 
-    /* Thanh tìm kiếm */
-    .search-container {
-      max-width: 900px;
-      margin: 1rem auto;
-      padding: 0 1rem;
-    }
-    #global-search {
-      width: 100%;
-      padding: 0.8rem 1.2rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      font-size: 1rem;
-      outline: none;
-      transition: border 0.3s;
-    }
-    #global-search:focus {
-      border-color: var(--accent);
-    }
-
-    /* Tabs */
     .tabs {
       display: flex;
       justify-content: center;
       gap: 0.5rem;
+      padding: 0.8rem;
       flex-wrap: wrap;
-      padding: 0.8rem 1rem;
       background: var(--light);
     }
     .tab-btn {
       background: #e3f2fd;
-      color: var(--primary);
       border: none;
       padding: 0.6rem 1.2rem;
       border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .tab-btn:hover, .tab-btn.active {
+    .tab-btn.active {
       background: var(--primary);
       color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(25,118,210,0.3);
     }
 
-    /* Nội dung */
-    #content > section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    .hidden { display: none; }
-    .active { display: block; }
+    .section { display: none; }
+    .section.active { display: block; }
 
-    /* Thẻ bài học - THIẾT KẾ MỚI */
-    .chapter-item {
-      background: var(--card-bg);
-      padding: 1.2rem;
-      margin-bottom: 1rem;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: all 0.3s;
-      border-left: 5px solid var(--accent);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.5s forwards;
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .chapter-item::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--accent), var(--primary));
-    }
-    .chapter-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-      background: #f0f7ff;
-    }
-    body.dark-mode .chapter-item:hover {
-      background: #2a2a2a;
-    }
-    .chapter-item a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
-    .visit-count {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 0.4rem;
-      display: block;
-    }
-    body.dark-mode .visit-count {
-      color: #aaa;
+    .card {
+      max-width: 800px;
+      margin: 1.5rem auto;
+      padding: 1.5rem;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    /* Màu chương */
-    .chuong-dai-so { border-left-color: #ff6b6b !important; }
-    .chuong-dai-so::before { background: linear-gradient(to bottom, #ff6b6b, #1976d2); }
-    .chuong-hinh-hoc { border-left-color: #4ecdc4 !important; }
-    .chuong-hinh-hoc::before { background: linear-gradient(to bottom, #4ecdc4, #1a936f); }
-    .chuong-on-thi { border-left-color: #ffd166 !important; }
-    .chuong-on-thi::before { background: linear-gradient(to bottom, #ffd166, #ef476f); }
-
-    /* Nút quay lại */
-    .back-buttons {
-      margin-top: 1.5rem;
-      display: flex;
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1rem;
-      flex-wrap: wrap;
+      margin-top: 1rem;
     }
-    .back-btn {
-      background: var(--light);
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 0.6rem 1.2rem;
-      border-radius: 10px;
-      font-weight: 600;
+    .topic-card {
+      background: #e3f2fd;
+      padding: 1.2rem;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
+      transition: transform 0.2s;
     }
-    .back-btn:hover {
-      background: var(--primary);
-      color: white;
+    .topic-card:hover {
+      transform: translateY(-3px);
+      background: #bbdefb;
     }
 
     footer {
@@ -229,243 +99,131 @@
       padding: 1.5rem;
       color: #666;
       font-size: 0.9rem;
-      margin-top: 2rem;
     }
 
     @media (max-width: 600px) {
       .tabs { flex-direction: column; align-items: stretch; }
       .tab-btn { width: 100%; }
-      .back-buttons { flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📘 TOÁN LỚP 9</h1>
-    <p>Chuẩn SGK – Ôn thi vào lớp 10 hiệu quả</p>
-    <button id="theme-toggle">🌙</button>
+    <h1>📘 TOÁN 9 – ĐẬU LỚP 10</h1>
   </header>
-
-  <!-- THANH TÌM KIẾM -->
-  <div class="search-container">
-    <input type="text" id="global-search" placeholder="🔍 Tìm nhanh: căn bậc hai, hệ thức lượng...">
-  </div>
 
   <nav class="tabs">
     <button class="tab-btn active" data-tab="home">Trang chủ</button>
-    <button class="tab-btn" data-tab="dai-so">Đại số</button>
-    <button class="tab-btn" data-tab="hinh-hoc">Hình học</button>
-    <button class="tab-btn" data-tab="on-thi">Ôn thi vào 10</button>
+    <button class="tab-btn" data-tab="learn">Học theo bài</button>
+    <button class="tab-btn" data-tab="practice">Luyện đề</button>
+    <button class="tab-btn" data-tab="progress">Tiến bộ</button>
+    <button class="tab-btn" data-tab="contact">Phụ huynh</button>
   </nav>
 
-  <main id="content">
-    <!-- Trang chủ -->
-    <section id="home-content" class="active">
-      <div style="background:var(--card-bg);padding:1.8rem;border-radius:16px;margin:1.5rem 0;box-shadow:0 4px 12px rgba(0,0,0,0.08);">
-        <h2>🌟 Chào mừng bạn đến với Toán 9!</h2>
-        <p>Ứng dụng học Toán 9 <strong>chuẩn SGK 2024</strong>, thiết kế đẹp, dễ học, hỗ trợ ôn thi vào lớp 10.</p>
-        <ul style="margin:1rem 0 0;padding-left:1.5rem;">
-          <li>✅ 23 bài Đại số + 17 bài Hình học</li>
-          <li>✅ 14 đề kiểm tra & 10 đề ôn thi</li>
-          <li>✅ Giao diện sinh động – học không chán!</li>
-          <li>📊 Thống kê lượt học cá nhân</li>
-        </ul>
-      </div>
-    </section>
+  <!-- TRANG CHỦ – LỘ TRÌNH ĐẬU LỚP 10 -->
+  <section id="home" class="section active">
+    <div class="card">
+      <h2>🎯 LỘ TRÌNH ĐẬU LỚP 10 CHO HỌC SINH YẾU</h2>
+      <ol style="margin:1rem 0;padding-left:1.5rem;">
+        <li><strong>Bước 1:</strong> Học theo dạng toán (không học lý thuyết dài)</li>
+        <li><strong>Bước 2:</strong> Làm bài ngay sau mỗi công thức</li>
+        <li><strong>Bước 3:</strong> Luyện đề thi thật theo Sở GD&ĐT</li>
+        <li><strong>Bước 4:</strong> Xem tiến bộ – tự tin đi thi</li>
+      </ol>
+      <button onclick="showSection('learn')" style="background:#1976d2;color:white;border:none;padding:0.6rem 1.2rem;border-radius:8px;margin-top:1rem;">➡️ BẮT ĐẦU NGAY</button>
+    </div>
+  </section>
 
-    <!-- Đại số -->
-    <section id="dai-so-content" class="hidden">
-      <h2 style="color:#ff6b6b;margin:1.5rem 0;">📘 Đại số</h2>
-      <div id="dai-so-list"></div>
-      <div class="back-buttons">
-        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
-        <a href="./" class="back-btn">🏠 Trang chủ</a>
+  <!-- HỌC THEO BÀI -->
+  <section id="learn" class="section">
+    <div class="card">
+      <h2>📚 HỌC THEO DẠNG TOÁN</h2>
+      <div class="topic-grid">
+        <div class="topic-card" onclick="window.location='lessons/ds-ch1-bai1.html'">
+          <h3>🔢 Căn bậc hai</h3>
+          <p>Công thức + ví dụ + làm ngay</p>
+        </div>
+        <div class="topic-card" onclick="window.location='lessons/hh-ch1-bai1.html'">
+          <h3>📐 Hệ thức lượng</h3>
+          <p>5 hệ thức + mẹo nhớ</p>
+        </div>
+        <div class="topic-card" onclick="window.location='lessons/ds-ch2-bai1.html'">
+          <h3>📈 Hàm số bậc nhất</h3>
+          <p>Đồ thị + ứng dụng</p>
+        </div>
+        <div class="topic-card" onclick="window.location='lessons/ds-ch3-bai1.html'">
+          <h3>🧮 Hệ phương trình</h3>
+          <p>Thế + cộng đại số</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Hình học -->
-    <section id="hinh-hoc-content" class="hidden">
-      <h2 style="color:#4ecdc4;margin:1.5rem 0;">📐 Hình học</h2>
-      <div id="hinh-hoc-list"></div>
-      <div class="back-buttons">
-        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
-        <a href="./" class="back-btn">🏠 Trang chủ</a>
-      </div>
-    </section>
+  <!-- LUYỆN ĐỀ -->
+  <section id="practice" class="section">
+    <div class="card">
+      <h2>📝 LUYỆN ĐỀ THI THẬT</h2>
+      <ul style="list-style:none;padding:0;">
+        <li style="margin:0.5rem 0;"><a href="exercises/de-on-thi-vao-10-mau-1.html">Mẫu 1 – Hà Nội</a></li>
+        <li style="margin:0.5rem 0;"><a href="exercises/de-on-thi-vao-10-mau-2.html">Mẫu 2 – TP.HCM</a></li>
+        <li style="margin:0.5rem 0;"><a href="exercises/de-on-thi-vao-10-de-3.html">Đề 3 – Dễ</a></li>
+        <li style="margin:0.5rem 0;"><a href="exercises/de-on-thi-vao-10-de-4.html">Đề 4 – Trung bình</a></li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Ôn thi -->
-    <section id="on-thi-content" class="hidden">
-      <h2 style="color:#ffd166;margin:1.5rem 0;">🎯 Ôn thi vào lớp 10</h2>
-      <div id="on-thi-list"></div>
-      <div class="back-buttons">
-        <a href="#" class="back-btn" onclick="goBack()">← Quay lại</a>
-        <a href="./" class="back-btn">🏠 Trang chủ</a>
-      </div>
-    </section>
-  </main>
+  <!-- TIẾN BỘ -->
+  <section id="progress" class="section">
+    <div class="card">
+      <h2>📈 TIẾN BỘ CỦA BẠN</h2>
+      <p>✅ Đã học: <strong id="lesson-count">0</strong> bài</p>
+      <p>✅ Đã làm: <strong id="exercise-count">0</strong> đề</p>
+      <p>🎯 Mục tiêu: <strong>ĐẬU LỚP 10!</strong></p>
+    </div>
+  </section>
+
+  <!-- PHỤ HUYNH -->
+  <section id="contact" class="section">
+    <div class="card">
+      <h2>📞 PHỤ HUYNH MUỐN HỖ TRỢ?</h2>
+      <p>App này <strong>miễn phí 100%</strong>, nhưng nếu bạn thấy con tiến bộ, hãy:</p>
+      <ul style="margin:1rem 0;padding-left:1.5rem;">
+        <li>👉 Chia sẻ với phụ huynh khác</li>
+        <li>👉 Đánh giá 5 sao khi cài app</li>
+        <li>👉 Nói với con: “Con làm được rồi!”</li>
+      </ul>
+    </div>
+  </section>
 
   <footer>
     <p>© 2026 | HSTAI 777 – Hỗ trợ học sinh Việt Nam</p>
   </footer>
 
-  <!-- DỮ LIỆU BÀI HỌC -->
   <script>
-    const lessons = {
-      daiSo: [
-        { chuong: "Chương I: Căn bậc hai. Căn bậc ba", bai: [
-          { ten: "Bài 1: Căn bậc hai", file: "lessons/ds-ch1-bai1.html" },
-          { ten: "Bài 2: Căn thức bậc hai và hằng đẳng thức \\(\\sqrt{A^2} = |A|\\)", file: "lessons/ds-ch1-bai2.html" },
-          { ten: "Bài 3: Liên hệ giữa phép nhân và phép khai phương", file: "lessons/ds-ch1-bai3.html" },
-          { ten: "Bài 4: Liên hệ giữa phép chia và phép khai phương", file: "lessons/ds-ch1-bai4.html" },
-          { ten: "Bài 5: Biến đổi đơn giản biểu thức chứa căn bậc hai", file: "lessons/ds-ch1-bai5.html" },
-          { ten: "Bài 6: Rút gọn biểu thức chứa căn bậc hai", file: "lessons/ds-ch1-bai6.html" },
-          { ten: "Bài 7: Căn bậc ba", file: "lessons/ds-ch1-bai7.html" }
-        ]},
-        { chuong: "Chương II: Hàm số bậc nhất", bai: [
-          { ten: "Bài 1: Nhắc lại và bổ sung các khái niệm về hàm số", file: "lessons/ds-ch2-bai1.html" },
-          { ten: "Bài 2: Hàm số bậc nhất", file: "lessons/ds-ch2-bai2.html" },
-          { ten: "Bài 3: Đồ thị của hàm số \\(y = ax + b\\)", file: "lessons/ds-ch2-bai3.html" },
-          { ten: "Bài 4: Đường thẳng song song và đường thẳng cắt nhau", file: "lessons/ds-ch2-bai4.html" },
-          { ten: "Bài 5: Hệ số góc của đường thẳng \\(y = ax + b\\)", file: "lessons/ds-ch2-bai5.html" }
-        ]}
-      ],
-      hinhHoc: [
-        { chuong: "Chương I: Hệ thức lượng trong tam giác vuông", bai: [
-          { ten: "Bài 1: Một số hệ thức về cạnh và đường cao...", file: "lessons/hh-ch1-bai1.html" },
-          { ten: "Bài 2: Tỉ số lượng giác của góc nhọn", file: "lessons/hh-ch1-bai2.html" },
-          { ten: "Bài 3: Bảng lượng giác", file: "lessons/hh-ch1-bai3.html" },
-          { ten: "Bài 4: Một số hệ thức về cạnh và góc...", file: "lessons/hh-ch1-bai4.html" }
-        ]},
-        { chuong: "Chương II: Đường tròn", bai: [
-          { ten: "Bài 1: Sự xác định đường tròn...", file: "lessons/hh-ch2-bai1.html" },
-          { ten: "Bài 2: Đường kính và dây của đường tròn", file: "lessons/hh-ch2-bai2.html" },
-          { ten: "Bài 3: Liên hệ giữa dây và khoảng cách...", file: "lessons/hh-ch2-bai3.html" },
-          { ten: "Bài 4: Vị trí tương đối của đường thẳng và đường tròn", file: "lessons/hh-ch2-bai4.html" },
-          { ten: "Bài 5: Dấu hiệu nhận biết tiếp tuyến...", file: "lessons/hh-ch2-bai5.html" },
-          { ten: "Bài 6: Tính chất của hai tiếp tuyến cắt nhau", file: "lessons/hh-ch2-bai6.html" },
-          { ten: "Bài 7: Vị trí tương đối của hai đường tròn", file: "lessons/hh-ch2-bai7.html" }
-        ]}
-      ],
-      onThi: [
-        { ten: "Mẫu 1 – Hà Nội", file: "exercises/de-on-thi-vao-10-mau-1.html" },
-        { ten: "Mẫu 2 – TP.HCM", file: "exercises/de-on-thi-vao-10-mau-2.html" },
-        { ten: "Đề 3 – Tổng hợp (dễ)", file: "exercises/de-on-thi-vao-10-de-3.html" },
-        { ten: "Đề 4 – Hà Nội", file: "exercises/de-on-thi-vao-10-de-4.html" },
-        { ten: "Đề 5 – Đà Nẵng", file: "exercises/de-on-thi-vao-10-de-5.html" },
-        { ten: "Đề 6 – Nâng cao", file: "exercises/de-on-thi-vao-10-de-6.html" },
-        { ten: "Đề 7 – Trung bình", file: "exercises/de-on-thi-vao-10-de-7.html" },
-        { ten: "Đề 8 – Bình Dương", file: "exercises/de-on-thi-vao-10-de-8.html" },
-        { ten: "Đề 9 – Cho HS giỏi", file: "exercises/de-on-thi-vao-10-de-9.html" },
-        { ten: "Đề 10 – Tổng kết", file: "exercises/de-on-thi-vao-10-de-10.html" }
-      ]
-    };
-
-    // === THỐNG KÊ LƯỢT HỌC ===
-    function getVisitCount(key) {
-      return parseInt(localStorage.getItem(`visit_${key}`) || '0');
-    }
-    function incrementVisit(key) {
-      const count = getVisitCount(key) + 1;
-      localStorage.setItem(`visit_${key}`, count.toString());
-      return count;
-    }
-
-    // === RENDER VỚI THỐNG KÊ ===
-    function renderContent() {
-      // Đại số
-      let dsHtml = '';
-      lessons.daiSo.forEach(ch => {
-        dsHtml += `<h3 style="margin:1.2rem 0;color:#ff6b6b;">${ch.chuong}</h3>`;
-        ch.bai.forEach(b => {
-          const key = b.file.replace(/\//g, '_').replace(/\.html$/, '');
-          const count = getVisitCount(key);
-          dsHtml += `
-            <div class="chapter-item chuong-dai-so" data-key="${key}">
-              <a href="${b.file}" onclick="incrementVisit('${key}')">${b.ten}</a>
-              <span class="visit-count">Đã học: ${count} lần</span>
-            </div>`;
-        });
-      });
-      document.getElementById('dai-so-list').innerHTML = dsHtml;
-
-      // Hình học
-      let hhHtml = '';
-      lessons.hinhHoc.forEach(ch => {
-        hhHtml += `<h3 style="margin:1.2rem 0;color:#4ecdc4;">${ch.chuong}</h3>`;
-        ch.bai.forEach(b => {
-          const key = b.file.replace(/\//g, '_').replace(/\.html$/, '');
-          const count = getVisitCount(key);
-          hhHtml += `
-            <div class="chapter-item chuong-hinh-hoc" data-key="${key}">
-              <a href="${b.file}" onclick="incrementVisit('${key}')">${b.ten}</a>
-              <span class="visit-count">Đã học: ${count} lần</span>
-            </div>`;
-        });
-      });
-      document.getElementById('hinh-hoc-list').innerHTML = hhHtml;
-
-      // Ôn thi
-      let onThiHtml = '<ul style="list-style:none;padding:0;">';
-      lessons.onThi.forEach(item => {
-        const key = item.file.replace(/\//g, '_').replace(/\.html$/, '');
-        const count = getVisitCount(key);
-        onThiHtml += `
-          <li style="margin-bottom:0.8rem;">
-            <a href="${item.file}" class="chapter-item chuong-on-thi" style="display:block;padding:1rem;border-radius:12px;" onclick="incrementVisit('${key}')">
-              ${item.ten}
-              <span class="visit-count">Đã học: ${count} lần</span>
-            </a>
-          </li>`;
-      });
-      onThiHtml += '</ul>';
-      document.getElementById('on-thi-list').innerHTML = onThiHtml;
-
-      // Áp dụng animation delay
-      document.querySelectorAll('.chapter-item').forEach((el, i) => {
-        el.style.animationDelay = `${i * 0.05}s`;
-      });
-    }
-
-    // === CÁC HÀM HỖ TRỢ ===
-    function goBack() {
-      if (window.history.length > 1) window.history.back();
-      else window.location.href = './';
-    }
-
-    function setupTabs() {
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-          document.querySelectorAll('#content > section').forEach(s => s.classList.remove('active'));
-          btn.classList.add('active');
-          const tabId = btn.getAttribute('data-tab') + '-content';
-          document.getElementById(tabId).classList.add('active');
-        });
-      });
-    }
-
-    function setupDarkMode() {
-      const toggle = document.getElementById('theme-toggle');
-      const isDark = localStorage.getItem('theme') === 'dark' || 
-                     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      if (isDark) {
-        document.body.classList.add('dark-mode');
-        toggle.textContent = '☀️';
+    // Tab switching
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id !== 'home') {
+        const btn = document.querySelector(`[data-tab="${id}"]`);
+        if (btn) btn.classList.add('active');
       }
-      toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const nowDark = document.body.classList.contains('dark-mode');
-        localStorage.setItem('theme', nowDark ? 'dark' : 'light');
-        toggle.textContent = nowDark ? '☀️' : '🌙';
-      });
     }
 
-    // === KHỞI TẠO ===
-    document.addEventListener('DOMContentLoaded', () => {
-      renderContent();
-      setupTabs();
-      setupDarkMode();
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        showSection(tab);
+      });
     });
+
+    // Service Worker registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
   </script>
 </body>
 </html>

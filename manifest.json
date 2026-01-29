@@ -1,10 +1,10 @@
 ﻿{
-  "name": "Toán 9 - Chuẩn SGK",
+  "name": "Toán 9 – Đậu Lớp 10",
   "short_name": "Toán 9",
-  "description": "Ứng dụng học Toán lớp 9 chuẩn SGK, miễn phí, ôn thi vào lớp 10.",
-  "start_url": "/toan9-web/",
+  "description": "App học Toán 9 cho học sinh yếu – đậu vào lớp 10",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#1976d2",
+  "background_color": "#ffffff",
   "theme_color": "#1976d2",
   "icons": [
     {
